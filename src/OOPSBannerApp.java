@@ -1,30 +1,49 @@
 /**
  * OOPSBannerApp
- * UC6: Refactor Banner Logic into Static Functions
+ * UC7: Store Character Pattern in an Inner Static Class
  *
  * @author Immanuel
- * @version 6.0
+ * @version 7.0
  */
 public class OOPSBannerApp {
 
-    public static void main(String[] args) {
+    /**
+     * Inner Static Class to encapsulate character and pattern
+     */
+    public static class CharacterPattern {
 
-        String[] o = getOPattern();
-        String[] p = getPPattern();
-        String[] s = getSPattern();
+        private char character;
+        private String[] pattern;
 
-        String[] banner = new String[7];
-
-        for (int i = 0; i < 7; i++) {
-            banner[i] = String.join(" ", o[i], o[i], p[i], s[i]);
+        /**
+         * Constructor
+         * @param character Character to represent
+         * @param pattern 7-line banner pattern
+         */
+        public CharacterPattern(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
         }
 
-        for (String line : banner) {
-            System.out.println(line);
+        /**
+         * Getter for character
+         * @return character
+         */
+        public char getCharacter() {
+            return character;
+        }
+
+        /**
+         * Getter for pattern
+         * @return pattern array
+         */
+        public String[] getPattern() {
+            return pattern;
         }
     }
 
-    // Helper method for O
+    // Utility Methods
+
     public static String[] getOPattern() {
         return new String[]{
                 "  *****  ",
@@ -37,7 +56,6 @@ public class OOPSBannerApp {
         };
     }
 
-    // Helper method for P
     public static String[] getPPattern() {
         return new String[]{
                 " ******  ",
@@ -50,7 +68,6 @@ public class OOPSBannerApp {
         };
     }
 
-    // Helper method for S
     public static String[] getSPattern() {
         return new String[]{
                 "  *****  ",
@@ -61,5 +78,32 @@ public class OOPSBannerApp {
                 " *     * ",
                 "  *****  "
         };
+    }
+
+    public static void main(String[] args) {
+
+        // Create objects for O, P, S
+        CharacterPattern oPattern = new CharacterPattern('O', getOPattern());
+        CharacterPattern pPattern = new CharacterPattern('P', getPPattern());
+        CharacterPattern sPattern = new CharacterPattern('S', getSPattern());
+
+        CharacterPattern[] word = {
+                oPattern,
+                oPattern,
+                pPattern,
+                sPattern
+        };
+
+        // Print banner using StringBuilder
+        for (int i = 0; i < 7; i++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (CharacterPattern cp : word) {
+                line.append(cp.getPattern()[i]).append(" ");
+            }
+
+            System.out.println(line);
+        }
     }
 }
