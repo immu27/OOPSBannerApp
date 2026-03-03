@@ -1,9 +1,9 @@
 /**
  * OOPSBannerApp
- * UC4: Render OOPS as Banner using String Array and Loop
+ * UC5: Render OOPS as Banner using Inline Array Initialization
  *
  * @author Immanuel
- * @version 4.0
+ * @version 5.0
  */
 public class OOPSBannerApp {
 
@@ -39,15 +39,18 @@ public class OOPSBannerApp {
                 "  *****  "
         };
 
-        // Step 1: Create banner array
-        String[] banner = new String[7];
+        // Inline declaration + initialization
+        String[] banner = {
+                String.join(" ", o[0], o[0], p[0], s[0]),
+                String.join(" ", o[1], o[1], p[1], s[1]),
+                String.join(" ", o[2], o[2], p[2], s[2]),
+                String.join(" ", o[3], o[3], p[3], s[3]),
+                String.join(" ", o[4], o[4], p[4], s[4]),
+                String.join(" ", o[5], o[5], p[5], s[5]),
+                String.join(" ", o[6], o[6], p[6], s[6])
+        };
 
-        // Step 2: Populate array using String.join()
-        for (int i = 0; i < 7; i++) {
-            banner[i] = String.join(" ", o[i], o[i], p[i], s[i]);
-        }
-
-        // Step 3: Print using enhanced for-loop
+        // Enhanced for-loop
         for (String line : banner) {
             System.out.println(line);
         }
