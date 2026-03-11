@@ -1,51 +1,24 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * OOPSBannerApp
- * UC7: Store Character Pattern in an Inner Static Class
- *
+ * UC8: Use Map for Character Patterns and Render via Function
+ * 
  * @author Immanuel
- * @version 7.0
+ * @version 8.0
  */
 public class OOPSBannerApp {
 
     /**
-     * Inner Static Class to encapsulate character and pattern
+     * Method to create the character pattern map
+     * @return map of character patterns
      */
-    public static class CharacterPattern {
+    public static Map<Character, String[]> createCharacterPatterns() {
 
-        private char character;
-        private String[] pattern;
+        Map<Character, String[]> patterns = new HashMap<>();
 
-        /**
-         * Constructor
-         * @param character Character to represent
-         * @param pattern 7-line banner pattern
-         */
-        public CharacterPattern(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
-
-        /**
-         * Getter for character
-         * @return character
-         */
-        public char getCharacter() {
-            return character;
-        }
-
-        /**
-         * Getter for pattern
-         * @return pattern array
-         */
-        public String[] getPattern() {
-            return pattern;
-        }
-    }
-
-    // Utility Methods
-
-    public static String[] getOPattern() {
-        return new String[]{
+        patterns.put('O', new String[]{
                 "  *****  ",
                 " *     * ",
                 " *     * ",
@@ -53,11 +26,9 @@ public class OOPSBannerApp {
                 " *     * ",
                 " *     * ",
                 "  *****  "
-        };
-    }
+        });
 
-    public static String[] getPPattern() {
-        return new String[]{
+        patterns.put('P', new String[]{
                 " ******  ",
                 " *     * ",
                 " *     * ",
@@ -65,11 +36,9 @@ public class OOPSBannerApp {
                 " *       ",
                 " *       ",
                 " *       "
-        };
-    }
+        });
 
-    public static String[] getSPattern() {
-        return new String[]{
+        patterns.put('S', new String[]{
                 "  *****  ",
                 " *     * ",
                 " *       ",
@@ -77,33 +46,44 @@ public class OOPSBannerApp {
                 "       * ",
                 " *     * ",
                 "  *****  "
-        };
+        });
+
+        return patterns;
     }
 
-    public static void main(String[] args) {
+    /**
+     * Method to render banner text
+     * @param message banner message
+     * @param patterns character pattern map
+     */
+    public static void renderBanner(String message, Map<Character, String[]> patterns) {
 
-        // Create objects for O, P, S
-        CharacterPattern oPattern = new CharacterPattern('O', getOPattern());
-        CharacterPattern pPattern = new CharacterPattern('P', getPPattern());
-        CharacterPattern sPattern = new CharacterPattern('S', getSPattern());
-
-        CharacterPattern[] word = {
-                oPattern,
-                oPattern,
-                pPattern,
-                sPattern
-        };
-
-        // Print banner using StringBuilder
-        for (int i = 0; i < 7; i++) {
+        for (int row = 0; row < 7; row++) {
 
             StringBuilder line = new StringBuilder();
 
-            for (CharacterPattern cp : word) {
-                line.append(cp.getPattern()[i]).append(" ");
+            for (char ch : message.toCharArray()) {
+
+                String[] pattern = patterns.get(ch);
+
+                if (pattern != null) {
+                    line.append(pattern[row]).append(" ");
+                }
             }
 
             System.out.println(line);
         }
+    }
+
+    /**
+     * Main Method
+     */
+    public static void main(String[] args) {
+
+        Map<Character, String[]> patterns = createCharacterPatterns();
+
+        String message = "OOPS";
+
+        renderBanner(message, patterns);
     }
 }
